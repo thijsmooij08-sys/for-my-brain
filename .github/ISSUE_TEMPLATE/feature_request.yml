@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a safe, testable PolyTrader improvement.
+title: "[feature] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and objective
+      description: What user or research problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Architecture and safety boundaries
+      description: Explain how the change preserves paper-only execution and deterministic risk.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List observable tests or checks that prove the feature works.
+    validations:
+      required: true

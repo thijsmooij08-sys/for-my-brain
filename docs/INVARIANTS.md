@@ -1,0 +1,27 @@
+# Invariants
+
+- **INV-001 — Strategy cannot execute:** Strategy → Signal → Opportunity → PositionSizer → RiskManager → OrderIntent → ExecutionEngine.
+- **INV-002 — Risk is authoritative:** no strategy, model, or learner bypasses Risk.
+- **INV-003 — Learning cannot raise global risk.**
+- **INV-004 — Exact financial precision:** authoritative money uses `Decimal`.
+- **INV-005 — Signal does not authorize capital.**
+- **INV-006 — Paper and future live share upstream logic.**
+- **INV-007 — Phase 1 cannot place real trades.**
+- **INV-008 — Fail closed** on execution-critical uncertainty.
+- **INV-009 — No historical future leakage.**
+- **INV-010 — Paper fills must be realistic:** consume actual book levels, never midpoint.
+- **INV-011 — No accidental naked selling.**
+- **INV-012 — Financial state must be auditable.**
+- **INV-013 — Learning requires evidence.**
+- **INV-014 — No martingale.**
+- **INV-015 — Resolution rules are first-class data.**
+- **INV-016 — Costs matter.**
+- **INV-017 — Idempotency.**
+- **INV-018 — Reconciliation** is mandatory for future live operation.
+- **INV-019 — Evidence provenance:** material research inputs retain source, source timestamp, collection timestamp, revision, and model/version metadata.
+- **INV-020 — Point-in-time integrity:** historical research reconstructs only information available at decision time, including data vintages and revisions.
+- **INV-021 — Research significance protection:** discovered patterns require holdouts or walk-forward tests, minimum samples, uncertainty intervals, stability checks, multiple-comparison controls where appropriate, and cost adjustment.
+- **INV-022 — Intelligence does not execute:** intelligence outputs are evidence/features until a separately validated strategy makes them actionable; no intelligence module submits orders.
+- **INV-023 — Asset-specific execution boundaries:** shared intelligence cannot erase differences between stock and prediction-market mechanics, risk, fees, or execution adapters.
+- **INV-024 — Capital-policy authority:** strategies cannot consume another budget; learning cannot increase externally approved asset-class or global limits.
+- **INV-025 — Explainable composite intelligence:** component scores, disagreement, evidence, and assumptions remain visible.

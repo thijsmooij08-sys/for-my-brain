@@ -1,0 +1,10 @@
+# Safety-sensitive runtime and policy files require owner review.
+* @thijsmooij08-sys
+/backend/src/polytrader/risk/ @thijsmooij08-sys
+/backend/src/polytrader/execution/ @thijsmooij08-sys
+/backend/src/polytrader/persistence/ @thijsmooij08-sys
+/backend/src/polytrader/api/ @thijsmooij08-sys
+/docker-compose.yml @thijsmooij08-sys
+/.github/workflows/ @thijsmooij08-sys
+/docs/INVARIANTS.md @thijsmooij08-sys
+/docs/security/ @thijsmooij08-sys

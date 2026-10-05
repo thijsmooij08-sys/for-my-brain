@@ -1,0 +1,32 @@
+groups:
+  - name: polytrader-safety
+    rules:
+      - alert: PolyTraderApiDown
+        expr: up{job="polytrader-api"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          system: polytrader
+        annotations:
+          summary: PolyTrader API is unavailable
+          description: The paper API target has been down for more than two minutes.
+
+      - alert: PolyTraderPaperModeMissing
+        expr: absent(polytrader_trading_mode{mode="PAPER"}) or polytrader_trading_mode{mode="PAPER"} != 1
+        for: 2m
+        labels:
+          severity: critical
+          system: polytrader
+        annotations:
+          summary: PolyTrader PAPER mode is not asserted
+          description: No authoritative PAPER mode gauge is present or it is not one.
+
+      - alert: PolyTraderLiveExecutionSignal
+        expr: polytrader_live_execution_enabled != 0
+        for: 0m
+        labels:
+          severity: critical
+          system: polytrader
+        annotations:
+          summary: Impossible live-execution signal detected
+          description: The live execution safety gauge is non-zero; stop the stack and investigate.

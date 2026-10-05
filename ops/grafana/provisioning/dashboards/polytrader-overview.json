@@ -1,0 +1,87 @@
+{
+  "annotations": {"list": []},
+  "editable": false,
+  "graphTooltip": 0,
+  "panels": [
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "id": 1,
+      "title": "API request rate",
+      "type": "timeseries",
+      "targets": [{"expr": "sum(rate(polytrader_api_requests_total[5m]))", "legendFormat": "requests/sec", "refId": "A"}]
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {"min": 0, "max": 1}, "overrides": []},
+      "gridPos": {"h": 8, "w": 6, "x": 12, "y": 0},
+      "id": 2,
+      "title": "API target health",
+      "type": "stat",
+      "targets": [{"expr": "up{job=\"polytrader-api\"}", "legendFormat": "API", "refId": "A"}]
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {"min": 0, "max": 1}, "overrides": []},
+      "gridPos": {"h": 8, "w": 6, "x": 18, "y": 0},
+      "id": 3,
+      "title": "Live execution switch",
+      "type": "stat",
+      "targets": [{"expr": "polytrader_live_execution_enabled", "legendFormat": "LIVE_TRADING_ENABLED", "refId": "A"}]
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {"min": 0, "max": 1}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "id": 4,
+      "title": "Paper mode",
+      "type": "stat",
+      "targets": [{"expr": "polytrader_trading_mode{mode=\"PAPER\"}", "legendFormat": "PAPER", "refId": "A"}]
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {"unit": "currencyUSD"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 12, "y": 8},
+      "id": 5,
+      "title": "Paper equity",
+      "type": "stat",
+      "targets": [{"expr": "polytrader_paper_equity", "legendFormat": "equity", "refId": "A"}]
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {"unit": "currencyUSD"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 20, "y": 8},
+      "id": 6,
+      "title": "Paper cash",
+      "type": "stat",
+      "targets": [{"expr": "polytrader_paper_cash", "legendFormat": "cash", "refId": "A"}]
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 16},
+      "id": 7,
+      "title": "Paper fills",
+      "type": "stat",
+      "targets": [{"expr": "polytrader_paper_fill_count", "legendFormat": "fills", "refId": "A"}]
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "-100"},
+      "fieldConfig": {"defaults": {}, "overrides": []},
+      "gridPos": {"h": 8, "w": 16, "x": 8, "y": 16},
+      "id": 8,
+      "title": "Open PolyTrader dashboard",
+      "type": "text",
+      "options": {"content": "[Open the live paper dashboard](http://127.0.0.1:5173/)\\n\\nThis Grafana view is observability-only. PAPER mode is forced and live execution remains disabled.", "mode": "markdown"}
+    }
+  ],
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["polytrader", "paper-only"],
+  "templating": {"list": []},
+  "time": {"from": "now-6h", "to": "now"},
+  "title": "PolyTrader Overview",
+  "uid": "polytrader-overview",
+  "version": 1
+}
