@@ -34,9 +34,9 @@
 - Create: `.github/workflows/ci.yml`
 - Modify: `.gitignore` (exclude local agent logs)
 
-- [ ] Add pull-request and main-branch CI using immutable official setup actions.
-- [ ] Run `scripts/verify.ps1` and Docker Compose configuration validation.
-- [ ] Validate workflow YAML and shell syntax locally.
+- [x] Add pull-request and main-branch CI using immutable official setup actions.
+- [x] Run `scripts/verify.ps1` and Docker Compose configuration validation.
+- [x] Validate workflow YAML and shell syntax locally.
 
 ### Task 2: Security and dependency workflows
 
@@ -46,9 +46,9 @@
 - Create: `.github/workflows/scorecard.yml`
 - Create: `.github/dependency-review-config.yml`
 
-- [ ] Enable Python and JavaScript/TypeScript CodeQL scanning.
-- [ ] Gate new critical/high dependency vulnerabilities and disallowed licenses.
-- [ ] Run Scorecard with read-only permissions and SARIF upload.
+- [x] Enable Python and JavaScript/TypeScript CodeQL scanning.
+- [x] Gate new critical/high dependency vulnerabilities and disallowed licenses.
+- [x] Run Scorecard with read-only permissions and SARIF upload.
 
 ### Task 3: Container and provenance controls
 
@@ -56,9 +56,9 @@
 - Create: `.github/workflows/container-security.yml`
 - Create: `.github/workflows/attest.yml`
 
-- [ ] Build the API and frontend images without pushing them.
-- [ ] Run pinned Hadolint and Trivy checks.
-- [ ] Produce build provenance only for a successful, non-secret build; do not publish or deploy.
+- [x] Build the API and frontend images without pushing them.
+- [x] Run pinned Hadolint and Trivy checks.
+- [x] Produce build provenance only for a successful, non-secret build; do not publish or deploy.
 
 ### Task 4: Repository governance
 
@@ -71,14 +71,22 @@
 - Create: `CONTRIBUTING.md`
 - Modify: `docs/integrations/GITHUB_ECOSYSTEM.md`
 
-- [ ] Require review of safety-sensitive paths.
-- [ ] Require contributors to report verification results and preserve paper-only boundaries.
-- [ ] Document GitHub branch-protection settings that must be enabled after the first push.
+- [x] Require review of safety-sensitive paths.
+- [x] Require contributors to report verification results and preserve paper-only boundaries.
+- [x] Document GitHub branch-protection settings that must be enabled after the first push.
 
 ### Task 5: Verification and publication
 
-- [ ] Parse every workflow and YAML file.
-- [ ] Run backend tests, Ruff, Pyright, frontend build, supply-chain checks, and Docker Compose config.
-- [ ] Inspect the final diff for secrets and live-execution paths.
-- [ ] Commit the changes and push to the explicitly linked empty repository only after all checks pass.
+- [x] Parse every workflow and YAML file.
+- [x] Run backend tests, Ruff, Pyright, frontend build, supply-chain checks, and Docker Compose config.
+- [x] Inspect the final diff for secrets and live-execution paths.
+- [x] Commit the changes and push to the explicitly linked empty repository only after all checks pass.
 
+## Verification record
+
+- Local verification was rerun on 2026-10-05 UTC: 98 backend tests passed, Ruff passed,
+  `scripts/verify.ps1` passed, and `docker compose config --quiet` passed.
+- Commits `12d4a24`, `9cd45d6`, and `43deada` are published on `origin/main`.
+- GitHub Actions runs for `43deada` are registered but remain queued by the hosted
+  runner at the time of this record; hosted conclusions and branch-protection activation
+  are intentionally not claimed here.

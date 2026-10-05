@@ -16,3 +16,4 @@ dist/
 coverage/
 *.egg-info/
 frontend/tsconfig.tsbuildinfo
+tmp_image_review_*/

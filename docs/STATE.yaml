@@ -24,7 +24,7 @@ active_exec_plan:
   path: docs/superpowers/plans/2026-10-05-post-roadmap-hardening.md
 verified:
   commit: null
-  timestamp_utc: "2026-10-05T01:27:30Z"
+  timestamp_utc: "2026-10-05T01:44:20Z"
   backend_tests: "passed (98 offline tests, including canonical evidence coverage for documented public last_trade_price, tick_size_change, and best_bid_ask events, online-backup integrity/retention and read-only capture configuration bounds, Phase 10 research-only allocation API/status, bounded allocation and hash-chained allocation-ledger controls, Phase 9 activation-gate, operational-preflight, and redacted reconciliation-rehearsal contracts, research integration contracts, public historical-price query contract, paper-engine restart restoration, redacted API diagnostics, stream-gap detection, exact reconciliation, append-only readiness journal, fail-closed eligibility, and all prior controls)"
   frontend_tests: not_configured
   typecheck: passed (Pyright 0 errors; frontend TypeScript/Vite build passed)
@@ -43,6 +43,7 @@ verified:
   supply_chain: "passed (pip-audit 2.10.1 reports no known Python vulnerabilities; npm audit reports zero vulnerabilities after Vite 6.4.3 upgrade; Dependabot config added)"
   backup_retention: "passed (Docker backup-worker created an online SQLite backup, SHA-256 manifest, PRAGMA integrity_check=ok, and retained policy verified; restored backup contained 777 evidence rows)"
   operational_alerts: "passed (Prometheus loaded PolyTraderApiDown, PolyTraderPaperModeMissing, and PolyTraderLiveExecutionSignal rules; all inactive/healthy during verification)"
+  github_controls: "local controls verified and published on origin/main at 43deada; GitHub Actions workflows are registered but hosted runs remain queued, so hosted conclusions and branch-protection activation are not claimed"
 commands:
   setup: "backend/.venv/Scripts/python -m pip install -e 'backend[research,security]'"
   backend_dev: "backend/.venv/Scripts/python -m uvicorn polytrader.api.app:app --reload"
