@@ -21,7 +21,9 @@ jobs:
           persist-credentials: false
       - name: Create source artifact
         shell: bash
-        run: tar --exclude=.git --exclude=.env --exclude=.venv --exclude=node_modules -czf polytrader-source.tar.gz .
+        run: |
+          tar --exclude=.git --exclude=.env --exclude=.venv --exclude=node_modules -czf /tmp/polytrader-source.tar.gz .
+          cp /tmp/polytrader-source.tar.gz ./polytrader-source.tar.gz
       - name: Upload source artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
