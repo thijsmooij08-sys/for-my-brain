@@ -38,7 +38,7 @@ jobs:
           python -m venv backend/.venv
           backend/.venv/bin/python -m pip install --upgrade pip
           backend/.venv/bin/pip install -e backend
-          backend/.venv/bin/pip install pytest==8.3.4 httpx==0.28.1 ruff==0.8.4 pyright==1.1.391 pip-audit==2.10.1
+          backend/.venv/bin/pip install pytest==8.3.4 httpx==0.28.1 ruff==0.8.4 pyright==1.1.391 pip-audit==2.10.1 pandas==2.3.3 quantstats==0.0.86
       - name: Run Python checks
         shell: bash
         run: |
