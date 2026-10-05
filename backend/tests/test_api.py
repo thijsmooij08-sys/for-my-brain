@@ -77,4 +77,5 @@ def test_paper_performance_is_honest_with_no_closed_trades() -> None:
     assert payload == {
         "fills": 0, "exits": 0, "wins": 0, "losses": 0, "win_rate": "0",
         "closed_trade_sample": 0, "realized_pnl": "0", "total_fees": "0",
+        "expectancy": "0", "max_drawdown": "0",
     }

@@ -34,3 +34,5 @@ def test_paper_performance_counts_only_closed_winners_and_losers(tmp_path) -> No
     assert performance["closed_trade_sample"] == 2
     assert performance["realized_pnl"] == Decimal("0.00")
     assert performance["total_fees"] == Decimal("0")
+    assert performance["expectancy"] == Decimal("0.00")
+    assert performance["max_drawdown"] == Decimal("0.10")

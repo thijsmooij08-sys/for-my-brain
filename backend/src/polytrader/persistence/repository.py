@@ -149,6 +149,8 @@ class PortfolioRepository:
         wins = losses = exits = 0
         realized_pnl = Decimal("0")
         total_fees = Decimal("0")
+        peak_realized = Decimal("0")
+        max_drawdown = Decimal("0")
         fills = self.fills()
         for fill in fills:
             quantity, price, fee = Decimal(fill.quantity), Decimal(fill.price), Decimal(fill.fee)
@@ -162,14 +164,18 @@ class PortfolioRepository:
             realized = notional - fee - average_cost * quantity
             exits += 1
             realized_pnl += realized
+            peak_realized = max(peak_realized, realized_pnl)
+            max_drawdown = max(max_drawdown, peak_realized - realized_pnl)
             if realized > 0:
                 wins += 1
             elif realized < 0:
                 losses += 1
             positions[fill.token_id] = (owned - quantity, cost_basis - average_cost * quantity)
         win_rate = (Decimal(wins) / Decimal(exits) * Decimal("100")) if exits else Decimal("0")
+        expectancy = realized_pnl / Decimal(exits) if exits else Decimal("0")
         return {
             "fills": len(fills), "exits": exits, "wins": wins, "losses": losses,
             "win_rate": win_rate, "closed_trade_sample": exits,
             "realized_pnl": realized_pnl, "total_fees": total_fees,
+            "expectancy": expectancy, "max_drawdown": max_drawdown,
         }
