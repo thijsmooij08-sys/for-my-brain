@@ -21,11 +21,11 @@ trading:
   live_enabled: false
   paper_objective: "maximize positive net realized P&L and calibrated closed-trade success rate, with drawdown and deterministic risk gates; expand markets/trade frequency only after staged evidence gates"
 active_exec_plan:
-  path: docs/superpowers/plans/2026-10-05-market-replay-hardening.md
+  path: docs/superpowers/plans/2026-10-05-framework-research-boundaries.md
 verified:
-  commit: "9a4a99c233a4469dedd39e07160d91174b5f8e19"
-  timestamp_utc: "2026-10-05T02:00:40Z"
-  backend_tests: "passed (117 offline tests, including price-sensitive Polymarket fee model integration, resolution/dispute lock-up metadata, conservative queue estimates, replay clock-quality diagnostics, external research catalog/import boundary, deterministic debate and Decimal paper-journal artifacts, canonical evidence coverage for documented public last_trade_price, tick_size_change, and best_bid_ask events, online-backup integrity/retention and read-only capture configuration bounds, Phase 10 research-only allocation API/status, bounded allocation and hash-chained allocation-ledger controls, Phase 9 activation-gate, operational-preflight, and redacted reconciliation-rehearsal contracts, research integration contracts, public historical-price query contract, paper-engine restart restoration, redacted API diagnostics, stream-gap detection, exact reconciliation, append-only readiness journal, fail-closed eligibility, and all prior controls)"
+  commit: "c1cc10c6f1f3e3d09b842674318a6dfb21f9cb2f"
+  timestamp_utc: "2026-10-05T03:10:00Z"
+  backend_tests: "passed (125 offline tests, including safe NautilusTrader/Hummingbot/Freqtrade/Kronos research catalog boundaries and data-only replay imports, price-sensitive Polymarket fee model integration, resolution/dispute lock-up metadata, conservative queue estimates, replay clock-quality diagnostics, external research catalog/import boundary, deterministic debate and Decimal paper-journal artifacts, canonical evidence coverage for documented public last_trade_price, tick_size_change, and best_bid_ask events, online-backup integrity/retention and read-only capture configuration bounds, Phase 10 research-only allocation API/status, bounded allocation and hash-chained allocation-ledger controls, Phase 9 activation-gate, operational-preflight, and redacted reconciliation-rehearsal contracts, research integration contracts, public historical-price query contract, paper-engine restart restoration, redacted API diagnostics, stream-gap detection, exact reconciliation, append-only readiness journal, fail-closed eligibility, and all prior controls)"
   frontend_tests: not_configured
   typecheck: passed (Pyright 0 errors; frontend TypeScript/Vite build passed)
   lint: "passed via scripts/verify.ps1"
@@ -46,6 +46,7 @@ verified:
   github_controls: "local controls verified and published on origin/main at 43deada; GitHub Actions workflows are registered but hosted runs remain queued, so hosted conclusions and branch-protection activation are not claimed"
   external_research_controls: "passed (reviewed-project catalog, research-only source boundaries, exact JSONL replay importer, deterministic debate artifacts, Decimal paper-journal analysis, and existing shadow-forward evaluator all verified; no third-party live code imported)"
   market_replay_hardening: "passed (Decimal V2 fee mode, maker exemption, resolution/dispute lock-up metadata, conservative queue estimate, duplicate/out-of-order/collection-lag diagnostics, full verification suite, public smoke, research checks, and Compose validation)"
+  framework_research_boundaries: "passed (official-source review of NautilusTrader, Hummingbot, Freqtrade, and Kronos; research-only catalog entries; data-only replay import coverage; no runtime package, credential, signer, or live connector added; future real-money gates documented)"
 commands:
   setup: "backend/.venv/Scripts/python -m pip install -e 'backend[research,security]'"
   backend_dev: "backend/.venv/Scripts/python -m uvicorn polytrader.api.app:app --reload"
