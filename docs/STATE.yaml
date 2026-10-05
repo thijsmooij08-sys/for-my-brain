@@ -21,7 +21,7 @@ trading:
   live_enabled: false
   paper_objective: "maximize positive net realized P&L and calibrated closed-trade success rate, with drawdown and deterministic risk gates; expand markets/trade frequency only after staged evidence gates"
 active_exec_plan:
-  path: docs/superpowers/plans/2026-10-05-post-roadmap-hardening.md
+  path: docs/superpowers/plans/2026-10-05-external-research-hardening.md
 verified:
   commit: "7fb35f7c1d0cc23561812e2ef1bb7dd14b879f30"
   timestamp_utc: "2026-10-05T01:55:42Z"
