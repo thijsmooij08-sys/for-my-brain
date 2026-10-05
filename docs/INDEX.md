@@ -15,6 +15,7 @@ Start with `STATE.yaml` and the active ExecPlan.
 | Research data integrations | `integrations/RESEARCH_DATA.md` |
 | GitHub ecosystem review | `integrations/GITHUB_ECOSYSTEM.md` |
 | External research project review | `integrations/EXTERNAL_RESEARCH_REVIEW_2026-10-05.md` |
+| Real-money transition gates | `security/REAL_MONEY_TRANSITION_GATES.md` |
 | Testing | `testing/TESTING.md` |
 | Security | `security/SECURITY.md` |
 | Observability and Grafana | `OBSERVABILITY.md` |

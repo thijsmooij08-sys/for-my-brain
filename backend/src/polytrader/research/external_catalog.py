@@ -111,6 +111,50 @@ class ExternalResearchCatalog:
                     "reject-runtime", "not accepted into runtime",
                     ("agent-orchestration comparison",), False,
                 ),
+                ExternalResearchSource(
+                    "nautilus-trader", "NautilusTrader",
+                    "https://github.com/nautechsystems/nautilus_trader", "extract-patterns",
+                    "LGPL-3.0; review adapter and dependency terms before copying",
+                    (
+                        "deterministic event clock",
+                        "research/live domain separation",
+                        "adapter boundary",
+                        "high-resolution order-book replay",
+                    ),
+                    True,
+                ),
+                ExternalResearchSource(
+                    "hummingbot", "Hummingbot", "https://github.com/hummingbot/hummingbot",
+                    "extract-patterns", "Apache-2.0; do not import key-handling or live connectors",
+                    (
+                        "connector boundary",
+                        "order-book tracker",
+                        "user-stream supervision",
+                        "operational bot lifecycle",
+                    ),
+                    True,
+                ),
+                ExternalResearchSource(
+                    "freqtrade", "Freqtrade", "https://github.com/freqtrade/freqtrade",
+                    "extract-patterns", "repository license and dependency terms require review",
+                    (
+                        "dry-run workflow",
+                        "look-ahead analysis",
+                        "recursive-analysis checks",
+                        "performance report",
+                    ),
+                    True,
+                ),
+                ExternalResearchSource(
+                    "kronos", "Kronos", "https://github.com/shiyu-coder/Kronos",
+                    "research-isolated", "MIT model code; model/data terms require review",
+                    (
+                        "OHLCV forecasting",
+                        "forecast calibration",
+                        "challenger-model evaluation",
+                    ),
+                    True,
+                ),
             )
         )
 

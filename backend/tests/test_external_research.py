@@ -35,6 +35,40 @@ def test_catalog_rejects_unknown_source() -> None:
         ExternalResearchCatalog.default().require("not-reviewed")
 
 
+@pytest.mark.parametrize(
+    ("source_id", "decision", "pattern"),
+    [
+        ("nautilus-trader", "extract-patterns", "deterministic event clock"),
+        ("hummingbot", "extract-patterns", "connector boundary"),
+        ("freqtrade", "extract-patterns", "look-ahead analysis"),
+        ("kronos", "research-isolated", "OHLCV forecasting"),
+    ],
+)
+def test_framework_catalog_entries_are_research_only(
+    source_id: str, decision: str, pattern: str
+) -> None:
+    source = ExternalResearchCatalog.default().require(source_id)
+
+    assert source.decision == decision
+    assert source.research_only is True
+    assert source.execution_authority is False
+    assert pattern in source.accepted_patterns
+
+
+@pytest.mark.parametrize("source_id", ["nautilus-trader", "hummingbot", "freqtrade", "kronos"])
+def test_framework_replay_import_remains_data_only(
+    tmp_path: Path, source_id: str
+) -> None:
+    path = tmp_path / "events.jsonl"
+    path.write_text(json.dumps(_event(1, "2026-01-01T00:00:00+00:00")) + "\n", encoding="utf-8")
+
+    imported = ExternalReplayImporter().from_jsonl(
+        path, source_id=source_id, license_ref="terms"
+    )
+
+    assert len(imported.dataset.events) == 1
+
+
 def _event(sequence: int, source_timestamp: str, *, payload: dict[str, object] | None = None) -> dict[str, object]:
     body = payload or {"price": "0.42", "size": "2"}
     return {

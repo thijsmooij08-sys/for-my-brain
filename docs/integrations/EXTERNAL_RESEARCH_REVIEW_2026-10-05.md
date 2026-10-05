@@ -20,6 +20,10 @@ code, or live-order paths. The catalog in
 | PMXT | venue-normalization concepts | no trading endpoints or unified execution client |
 | Marketlens | historical L2, queue-aware replay, and latency evidence | provider/license review required before data import |
 | Polymarket Trader | modular adapter and paper-fill comparison ideas | comparison only; no duplicate runtime |
+| NautilusTrader | deterministic event clocks, adapter boundaries, and high-resolution replay | isolated reference only; no Rust engine or live adapter in the runtime |
+| Hummingbot | order-book tracker, user-stream supervision, and connector lifecycle patterns | extract interface ideas only; no key stores, gateway, or order connectors |
+| Freqtrade | dry-run lifecycle, look-ahead/recursive analysis, and performance reporting | testing concepts only; crypto strategy runtime is out of scope |
+| Kronos | OHLCV tokenizer/forecast interface and challenger-model evaluation | optional research model only; never a Polymarket order signal |
 
 ## Explicitly rejected for the runtime
 
@@ -52,3 +56,29 @@ The following concepts were implemented without importing Vibe-Trading:
 - The existing `ShadowForwardEvaluator` remains the shadow-backtesting path,
   including Brier scoring, Champion/Challenger comparison, drift detection, and
   the terminal no-order sink.
+
+## Framework additions from the 2026-10-04 archive
+
+The four archived screenshots were reviewed against official repositories and
+their patterns are now represented in the catalog. No package, Docker service,
+credential store, wallet client, or live connector was installed. The replay
+import boundary may accept externally recorded data for research, but imported
+data remains non-actionable and cannot create an order intent.
+
+Safe additions are NautilusTrader's deterministic event-clock and
+adapter-boundary vocabulary; Hummingbot's separation of order-book tracking,
+user streams, and connector lifecycle; Freqtrade's dry-run, look-ahead,
+recursive-analysis, and performance-reporting checks; and Kronos's
+model/challenger evaluation vocabulary for optional OHLCV research.
+
+## Real-money transition knowledge (future gates only)
+
+This is recorded for future planning, not authorization. Completing paper or
+shadow testing does not enable live trading. Any future transition would still
+require separately verified account eligibility, an external secret store, a
+secure signer boundary, venue order/user-stream contracts, restart-safe
+reconciliation, deterministic risk limits and circuit breakers, staged shadow
+evidence with realistic costs, and a separate explicit operator authorization.
+Until then, `LIVE_TRADING_ENABLED=false` remains authoritative and every
+real-order path must fail closed. No private key, wallet credential, exchange
+secret, or activation token belongs in project memory or repository files.
