@@ -49,6 +49,7 @@ verified:
   framework_research_boundaries: "passed (official-source review of NautilusTrader, Hummingbot, Freqtrade, and Kronos; research-only catalog entries; data-only replay import coverage; no runtime package, credential, signer, or live connector added; future real-money gates documented)"
   frontend_paper_activity: "passed (dashboard reads paper positions and performance, displays open exposure and fill count, refreshes every 5 seconds, refreshes on tab focus, and Docker frontend rebuild returned HTTP 200)"
   accelerated_paper_feedback: "passed (paper-worker cadence reduced from 300s to the enforced 30s safe minimum; two observed cycles completed with realistic fills unchanged, MAX_TOTAL_EXPOSURE and data-quality gates preserved, live_execution=false)"
+  frontend_interactions: "passed (Docker dashboard navigation now switches Overview, Markets, Opportunities, Positions, Research, and System views; range controls update selection; live public markets and paper positions are visible; Run paper scan calls the risk-gated POST /api/v1/paper/cycle endpoint and surfaced a verified 0 accepted/11 rejected result; live_execution=false)"
 commands:
   setup: "backend/.venv/Scripts/python -m pip install -e 'backend[research,security]'"
   backend_dev: "backend/.venv/Scripts/python -m uvicorn polytrader.api.app:app --reload"
