@@ -67,7 +67,8 @@ services:
     environment:
       PAPER_API_URL: http://api:8000
       PAPER_WORKER_ENABLED: "true"
-      PAPER_CYCLE_INTERVAL_SECONDS: "300"
+      # Fast paper feedback; the worker enforces a 30-second lower bound.
+      PAPER_CYCLE_INTERVAL_SECONDS: "30"
       PAPER_MARKET_LIMIT: "20"
     command: ["python", "-m", "polytrader.paper_worker"]
   market-capture:
