@@ -3,3 +3,4 @@
 /* Interactive paper-workspace feedback */
 .cycle-status{margin:0 0 14px;padding:10px 14px;border:1px solid #1a6479;border-radius:7px;background:rgba(0,183,214,.08);color:#8cecf2;font:10px 'IBM Plex Mono',monospace;letter-spacing:.04em}.research-copy{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.outline-button:disabled{cursor:wait;opacity:.62}
 .cycle-status b,.cycle-status small{display:block}.cycle-status small{margin-top:5px;color:#6ea6b9;font-size:9px;white-space:normal}
+.activity-list{display:grid;gap:8px;padding:16px 0 2px}.activity-row{display:grid;grid-template-columns:48px 1fr auto auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #102d42;font:10px 'IBM Plex Mono',monospace;color:#b8cedb}.activity-row:last-child{border-bottom:0}
