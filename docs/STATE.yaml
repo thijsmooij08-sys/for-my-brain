@@ -23,8 +23,8 @@ trading:
 active_exec_plan:
   path: docs/superpowers/plans/2026-10-05-post-roadmap-hardening.md
 verified:
-  commit: null
-  timestamp_utc: "2026-10-05T01:44:20Z"
+  commit: "3cc7d02da4cbb7088708f2c9a3bf10fa70ea9ecb"
+  timestamp_utc: "2026-10-05T01:46:30Z"
   backend_tests: "passed (98 offline tests, including canonical evidence coverage for documented public last_trade_price, tick_size_change, and best_bid_ask events, online-backup integrity/retention and read-only capture configuration bounds, Phase 10 research-only allocation API/status, bounded allocation and hash-chained allocation-ledger controls, Phase 9 activation-gate, operational-preflight, and redacted reconciliation-rehearsal contracts, research integration contracts, public historical-price query contract, paper-engine restart restoration, redacted API diagnostics, stream-gap detection, exact reconciliation, append-only readiness journal, fail-closed eligibility, and all prior controls)"
   frontend_tests: not_configured
   typecheck: passed (Pyright 0 errors; frontend TypeScript/Vite build passed)
