@@ -21,7 +21,7 @@ trading:
   live_enabled: false
   paper_objective: "maximize positive net realized P&L and calibrated closed-trade success rate, with drawdown and deterministic risk gates; expand markets/trade frequency only after staged evidence gates"
 active_exec_plan:
-  path: docs/superpowers/plans/2026-10-05-framework-research-boundaries.md
+  path: docs/superpowers/plans/2026-10-05-paper-trading-improvement-program.md
 verified:
   commit: "096cceb"
   timestamp_utc: "2026-10-05T03:24:00Z"
@@ -50,6 +50,7 @@ verified:
   frontend_paper_activity: "passed (dashboard reads paper positions and performance, displays open exposure and fill count, refreshes every 5 seconds, refreshes on tab focus, and Docker frontend rebuild returned HTTP 200)"
   accelerated_paper_feedback: "passed (paper-worker cadence reduced from 300s to the enforced 30s safe minimum; two observed cycles completed with realistic fills unchanged, MAX_TOTAL_EXPOSURE and data-quality gates preserved, live_execution=false)"
   frontend_interactions: "passed (Docker dashboard navigation now switches Overview, Markets, Opportunities, Positions, Research, and System views; range controls update selection; live public markets and paper positions are visible; Run paper scan calls the risk-gated POST /api/v1/paper/cycle endpoint and surfaced a verified 0 accepted/11 rejected result; live_execution=false)"
+  paper_exit_management: "passed in offline and Docker verification (existing positions are evaluated independently of new BUY signals; exits still require fresh executable bids, the 5% management threshold, RiskManager approval, owned inventory, and book-walking paper execution; regression suite 126 passed; current live cycle had 0 exits because no current book met the threshold and exposure/data gates remained enforced)"
 commands:
   setup: "backend/.venv/Scripts/python -m pip install -e 'backend[research,security]'"
   backend_dev: "backend/.venv/Scripts/python -m uvicorn polytrader.api.app:app --reload"

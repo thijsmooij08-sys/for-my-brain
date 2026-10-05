@@ -62,6 +62,8 @@ class AutonomousPaperTrader:
         rejected = 0
         reasons: list[str] = []
         candidates: list[tuple[MarketSummary, OrderBook, Signal, str]] = []
+        positions_before_cycle = self.service.engine.positions()
+        books_by_token: dict[str, tuple[MarketSummary, OrderBook]] = {}
         for market in markets:
             normalized_status = market.status.lower()
             simple_open_state = normalized_status in {"active", "open"}
@@ -80,6 +82,7 @@ class AutonomousPaperTrader:
             if not health.can_open_exposure:
                 reasons.append(f"{market.market_id}:data-{health.status.value}")
                 continue
+            books_by_token[book.token_id] = (market, book)
             eligible += 1
             signal = self.strategy.analyze(market.market_id, market.yes_token_id, book, observed_at)
             if signal.action != "BUY":
@@ -95,14 +98,21 @@ class AutonomousPaperTrader:
             elif result.risk is not None and not result.risk.approved:
                 rejected += 1
                 reasons.append(f"{market.market_id}:{result.risk.reason_code}")
-            position = self.service.engine.positions().get(token_id)
-            if position and position[0] > 0:
-                average_cost = position[1] / position[0]
-                best_bid = book.best_bid()
-                if best_bid is not None and best_bid >= average_cost * Decimal("1.05"):
-                    exit_result = self._exit(market.market_id, book, observed_at, position[0])
-                    if exit_result is not None and exit_result.filled_quantity > 0:
-                        sells += 1
+        # Manage positions that existed before this cycle independently of the
+        # entry signal. A NO_ACTION signal must not strand an already-open
+        # position; exits still pass through OpportunityEngine, RiskManager,
+        # OrderIntent, and the same book-walking paper execution path.
+        for token_id, (quantity, cost_basis) in positions_before_cycle.items():
+            market_book = books_by_token.get(token_id)
+            if market_book is None or quantity <= 0:
+                continue
+            market, book = market_book
+            average_cost = cost_basis / quantity if quantity else Decimal("0")
+            best_bid = book.best_bid()
+            if best_bid is not None and best_bid >= average_cost * Decimal("1.05"):
+                exit_result = self._exit(market.market_id, book, observed_at, quantity)
+                if exit_result is not None and exit_result.filled_quantity > 0:
+                    sells += 1
         self._completed_cycles.add(cycle_id)
         report = PaperCycleReport(cycle_id, "COMPLETED", len(markets), eligible, buys, sells, rejected, eligible, tuple(reasons))
         if self.journal is not None:

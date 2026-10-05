@@ -57,6 +57,34 @@ def test_autonomous_cycle_accepts_official_sdk_active_state_string(tmp_path) -> 
     assert report.buy_count == 1
 
 
+def test_autonomous_cycle_manages_existing_position_even_without_new_buy_signal(tmp_path) -> None:
+    class ExitSource(Source):
+        async def order_book(self, token_id: str) -> OrderBook:
+            return OrderBook("yes", (BookLevel(Decimal("0.45"), Decimal("10")),),
+                             (BookLevel(Decimal("0.50"), Decimal("10")),),
+                             source_timestamp=datetime.now(UTC) - timedelta(seconds=1),
+                             received_at=datetime.now(UTC))
+
+    repo = PortfolioRepository(f"sqlite:///{tmp_path / 'exit.db'}")
+    engine = PaperExecutionEngine(Decimal("10"))
+    entry_book = OrderBook("yes", (BookLevel(Decimal("0.35"), Decimal("10")),),
+                           (BookLevel(Decimal("0.40"), Decimal("10")),))
+    entry = engine.execute("seed-entry", "yes", "BUY", Decimal("2"), entry_book)
+    repo.record_fill("seed-entry", "yes", "BUY", entry.filled_quantity, entry.average_price, entry.fee)
+    trader = AutonomousPaperTrader(
+        source=ExitSource(), strategy=DevelopmentStrategy(Decimal("0.40")),
+        sizer=PositionSizer(Decimal("1")), risk=RiskManager(RiskConfig(max_order_notional=Decimal("1"))),
+        service=PaperTradingService(engine, repo),
+    )
+
+    report = asyncio.run(trader.run_cycle(datetime.now(UTC)))
+
+    assert report.buy_count == 0
+    assert report.sell_count == 1
+    assert engine.position_quantity("yes") == Decimal("0")
+    assert repo.paper_performance(Decimal("10"))["wins"] == 1
+
+
 def test_kill_switch_stops_cycle_without_execution(tmp_path) -> None:
     repo = PortfolioRepository(f"sqlite:///{tmp_path / 'kill.db'}")
     trader = AutonomousPaperTrader(
