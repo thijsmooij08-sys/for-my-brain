@@ -35,8 +35,9 @@ the system paper-only, risk-gated, and exact-Decimal:
 
 ## Task 3 — Performance evidence
 
-- [ ] Expose realized P&L, drawdown, expectancy, fees, slippage, and calibration by closed trade.
-- [ ] Keep zero-closed-trade state distinct from a zero-percent win rate.
+- [x] Expose realized P&L, total fees, and closed-trade sample size from the auditable fill ledger.
+- [x] Keep zero-closed-trade state distinct from a zero-percent win rate in the API and dashboard.
+- [ ] Add drawdown, expectancy, slippage, and calibration by closed trade.
 
 ## Task 4 — Dashboard observability
 

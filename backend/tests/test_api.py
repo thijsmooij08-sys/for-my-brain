@@ -74,4 +74,7 @@ def test_phase_ten_learning_api_is_research_only() -> None:
 
 def test_paper_performance_is_honest_with_no_closed_trades() -> None:
     payload = TestClient(app).get("/api/v1/paper/performance").json()
-    assert payload == {"fills": 0, "exits": 0, "wins": 0, "losses": 0, "win_rate": "0"}
+    assert payload == {
+        "fills": 0, "exits": 0, "wins": 0, "losses": 0, "win_rate": "0",
+        "closed_trade_sample": 0, "realized_pnl": "0", "total_fees": "0",
+    }

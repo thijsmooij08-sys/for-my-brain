@@ -147,9 +147,12 @@ class PortfolioRepository:
         del starting_cash  # Reserved for future equity-series metrics.
         positions: dict[str, tuple[Decimal, Decimal]] = {}
         wins = losses = exits = 0
+        realized_pnl = Decimal("0")
+        total_fees = Decimal("0")
         fills = self.fills()
         for fill in fills:
             quantity, price, fee = Decimal(fill.quantity), Decimal(fill.price), Decimal(fill.fee)
+            total_fees += fee
             owned, cost_basis = positions.get(fill.token_id, (Decimal("0"), Decimal("0")))
             notional = quantity * price
             if fill.side == "BUY":
@@ -158,10 +161,15 @@ class PortfolioRepository:
             average_cost = cost_basis / owned if owned else Decimal("0")
             realized = notional - fee - average_cost * quantity
             exits += 1
+            realized_pnl += realized
             if realized > 0:
                 wins += 1
             elif realized < 0:
                 losses += 1
             positions[fill.token_id] = (owned - quantity, cost_basis - average_cost * quantity)
         win_rate = (Decimal(wins) / Decimal(exits) * Decimal("100")) if exits else Decimal("0")
-        return {"fills": len(fills), "exits": exits, "wins": wins, "losses": losses, "win_rate": win_rate}
+        return {
+            "fills": len(fills), "exits": exits, "wins": wins, "losses": losses,
+            "win_rate": win_rate, "closed_trade_sample": exits,
+            "realized_pnl": realized_pnl, "total_fees": total_fees,
+        }

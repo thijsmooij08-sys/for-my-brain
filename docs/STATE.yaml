@@ -51,6 +51,7 @@ verified:
   accelerated_paper_feedback: "passed (paper-worker cadence reduced from 300s to the enforced 30s safe minimum; two observed cycles completed with realistic fills unchanged, MAX_TOTAL_EXPOSURE and data-quality gates preserved, live_execution=false)"
   frontend_interactions: "passed (Docker dashboard navigation now switches Overview, Markets, Opportunities, Positions, Research, and System views; range controls update selection; live public markets and paper positions are visible; Run paper scan calls the risk-gated POST /api/v1/paper/cycle endpoint and surfaced a verified 0 accepted/11 rejected result; live_execution=false)"
   paper_exit_management: "passed in offline and Docker verification (existing positions are evaluated independently of new BUY signals; exits still require fresh executable bids, the 5% management threshold, RiskManager approval, owned inventory, and book-walking paper execution; regression suite 126 passed; current live cycle had 0 exits because no current book met the threshold and exposure/data gates remained enforced)"
+  performance_evidence: "passed (paper performance API and dashboard expose realized_pnl, total_fees, and closed_trade_sample from the auditable Decimal fill ledger; zero closed trades renders as awaiting a closed sample; Docker endpoint and browser dashboard verified)"
 commands:
   setup: "backend/.venv/Scripts/python -m pip install -e 'backend[research,security]'"
   backend_dev: "backend/.venv/Scripts/python -m uvicorn polytrader.api.app:app --reload"
