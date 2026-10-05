@@ -22,6 +22,7 @@ Start with `STATE.yaml` and the active ExecPlan.
 | Live-readiness controls | `security/LIVE_READINESS.md` |
 | Intelligence and evidence roadmap | `intelligence/INTELLIGENCE_ARCHITECTURE.md` |
 | Evidence and point-in-time data | `intelligence/EVIDENCE.md` |
+| Market replay hardening | `backtesting/MARKET_REPLAY_HARDENING.md` |
 | Initial paper-trading focus | `strategy/PAPER_FOCUS.md` |
 | Paper objective and expansion policy | `strategy/PAPER_OBJECTIVE.md` |
 | Portfolio exposure and scenarios | `portfolio/EXPOSURE_GRAPH.md` |
