@@ -41,7 +41,8 @@ the system paper-only, risk-gated, and exact-Decimal:
 
 ## Task 4 — Dashboard observability
 
-- [ ] Add recent fills/exits, rejection reasons, and ledger-backed equity history.
+- [x] Surface paper-scan rejection reasons and ledger performance summary in the live dashboard.
+- [ ] Add a recent fills/exits feed and ledger-backed equity history.
 - [ ] Verify all controls through the browser against the Docker build.
 
 ## Task 5 — Historical evidence

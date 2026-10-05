@@ -37,6 +37,7 @@ function App() {
   const [activeView, setActiveView] = useState<ViewName>("Overview");
   const [range, setRange] = useState<RangeName>("7D");
   const [cycleStatus, setCycleStatus] = useState<string>("");
+  const [cycleReasons, setCycleReasons] = useState<string[]>([]);
   const [cycleRunning, setCycleRunning] = useState(false);
 
   const refresh = () => Promise.all([
@@ -52,15 +53,17 @@ function App() {
 
   const runPaperCycle = async () => {
     if (cycleRunning) return;
-    setCycleRunning(true); setCycleStatus("Scanning live public books through risk gates…");
+    setCycleRunning(true); setCycleStatus("Scanning live public books through risk gates…"); setCycleReasons([]);
     try {
       const response = await fetch(`${apiBase}/api/v1/paper/cycle?limit=20`, { method: "POST" });
       const result = await response.json();
       if (!response.ok) throw new Error(result.detail ?? "Paper cycle failed");
+      const reasons = Array.isArray(result.reasons) ? result.reasons.slice(0, 3) : [];
+      setCycleReasons(reasons);
       setCycleStatus(`Paper scan complete · ${result.buy_count ?? 0} buys · ${result.sell_count ?? 0} sells · ${result.rejected ?? 0} rejected`);
       await refresh();
     } catch (error) {
-      setCycleStatus(error instanceof Error ? error.message : "Paper scan unavailable");
+      setCycleReasons([]); setCycleStatus(error instanceof Error ? error.message : "Paper scan unavailable");
     } finally { setCycleRunning(false); }
   };
 
@@ -80,7 +83,7 @@ function App() {
     <aside className="sidebar"><div className="brand-lockup"><div className="brand-mark">◆</div><div><strong>PolyTrader</strong><span>paper intelligence</span></div></div><nav aria-label="Primary navigation">{navItems.map(([icon, label, detail]) => <button className={`nav-item ${activeView === label ? "selected" : ""}`} key={label} onClick={() => setActiveView(label as ViewName)}><span className="nav-icon">{icon}</span><span><b>{label}</b><small>{detail}</small></span></button>)}</nav><div className="sidebar-foot"><span>POLYTRADER</span><small>SAFE MARKETS<br />SHARPER INSIGHTS</small></div></aside>
     <main className="content"><header className="topbar"><div className="topbar-clock"><span className="live-dot" /> PUBLIC DATA <small>updated {updateText}</small></div><div className="safety-cluster"><div className="safety-card paper"><span>⬡</span><div><b>PAPER MODE</b><small>Simulated trading environment</small></div></div><div className="safety-card locked"><span>⊘</span><div><b>LIVE EXECUTION OFF</b><small>No real orders will be placed</small></div></div></div></header>
       <section className="page-heading"><div><p className="eyebrow">COMMAND CENTER / PHASE 8</p><h1>{activeView}</h1><p className="lede">{activeView === "Overview" ? "Your Polymarket paper-trading performance and intelligence at a glance." : viewDescription(activeView)}</p></div><div className="range-control">{(["1D", "7D", "30D", "ALL"] as RangeName[]).map((value) => <button key={value} className={range === value ? "active" : ""} onClick={() => setRange(value)}>{value}</button>)}</div></section>
-      {cycleStatus && <div className="cycle-status" role="status">{cycleStatus}</div>}
+      {cycleStatus && <div className="cycle-status" role="status"><b>{cycleStatus}</b>{cycleReasons.length > 0 && <small>Gate detail: {cycleReasons.join(" · ")}</small>}</div>}
       {activeView !== "Overview" && <WorkspaceView view={activeView} markets={markets} positions={positions} performance={performance} health={health} system={system} cycleRunning={cycleRunning} onRunCycle={runPaperCycle} onOpenResearch={() => setActiveView("Research")} />}
       {activeView === "Overview" && <>
       <section className="metric-grid"><Metric label="Paper equity" value={money(portfolio?.equity)} note="Verified account state" tone="green" icon="↗" /><Metric label="Cash (paper)" value={money(portfolio?.cash)} note="Available simulated cash" tone="cyan" icon="◎" /><Metric label="Open exposure" value={money(openExposure.toString())} note={`${positions.length} open paper position${positions.length === 1 ? "" : "s"}`} tone="amber" icon="◷" /><Metric label="Realized P&L" value={money(portfolio?.realized_pnl)} note="Accounting ledger" tone="green" icon="▥" /><Metric label="Win rate" value={performance?.closed_trade_sample ? `${performance.win_rate}%` : "—"} note={performance?.closed_trade_sample ? `${performance.wins}W / ${performance.losses}L · n=${performance.closed_trade_sample}` : performance?.fills ? `${performance.fills} fills; awaiting closed sample` : "No paper fills yet"} tone="orange" icon="%" /></section>
