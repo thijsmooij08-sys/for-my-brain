@@ -52,4 +52,4 @@
 
 - [x] Run backend tests, Ruff, full verification, public smoke, research checks, and Compose validation.
 - [x] Confirm live execution remains disabled and repository is clean.
-- [ ] Commit and publish.
+- [x] Commit and publish.
