@@ -23,7 +23,7 @@ trading:
 active_exec_plan:
   path: docs/superpowers/plans/2026-10-05-paper-trading-improvement-program.md
 verified:
-  commit: "23fed5a"
+  commit: "005d1ed"
   timestamp_utc: "2026-10-05T03:24:00Z"
   backend_tests: "passed (125 offline tests, including safe NautilusTrader/Hummingbot/Freqtrade/Kronos research catalog boundaries and data-only replay imports, price-sensitive Polymarket fee model integration, resolution/dispute lock-up metadata, conservative queue estimates, replay clock-quality diagnostics, external research catalog/import boundary, deterministic debate and Decimal paper-journal artifacts, canonical evidence coverage for documented public last_trade_price, tick_size_change, and best_bid_ask events, online-backup integrity/retention and read-only capture configuration bounds, Phase 10 research-only allocation API/status, bounded allocation and hash-chained allocation-ledger controls, Phase 9 activation-gate, operational-preflight, and redacted reconciliation-rehearsal contracts, research integration contracts, public historical-price query contract, paper-engine restart restoration, redacted API diagnostics, stream-gap detection, exact reconciliation, append-only readiness journal, fail-closed eligibility, and all prior controls)"
   frontend_tests: not_configured
