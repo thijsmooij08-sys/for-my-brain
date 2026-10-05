@@ -49,3 +49,8 @@ wallet credentials, signer inputs, or live-order permissions. Branch
 protection requiring CI and owner review must be enabled in GitHub repository
 settings after the first push; workflow files cannot safely enable that
 repository setting by themselves.
+
+The 2026-10-05 external-project scan is recorded in
+`EXTERNAL_RESEARCH_REVIEW_2026-10-05.md`. Only research patterns from reviewed
+projects are adopted; live-capable trading agents remain rejected from the
+PolyTrader runtime.
